@@ -1,0 +1,77 @@
+import re
+regex = r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+
+regexpass = re.compile(r'''((?=.* [A-Z])(?=.* [0-9])(?=.* [a-z])(?=.* [+-^%&/\*$#@!]).{5,16})''',re.VERBOSE)
+def check1(mail):
+   
+   if (re.fullmatch(regex, mail)):
+     print("mail valid")
+     return True  
+   else:
+     print("mail invalid")  
+
+def check(password):
+  
+  if (re.match(regexpass, password)):
+    print("password valid")
+    return True
+  else:
+    print("password invalid")
+
+def append(mail, password):
+ 
+ if check1(mail) and check(password) is True:
+  file= open("Login and Registration.txt","a")
+  file.write(mail+"\n")
+  file.write(password+"\n")
+  file.close()
+  print("mailid and password are sucessfully registered")
+ else:
+  print("Invalid mailid or password")
+
+def already_exist(mail):
+  with open('Login and Registration.txt') as f:
+     mylist = [line.rstrip('\n') for line in f]
+     if mail in mylist:
+       print("mailid already exist")
+     else:
+       append(mail, password)
+
+
+menu = {'1': 'register', '2': 'login', '3': 'forget_password'}
+
+for x, y in menu.items():
+    print(x, y)
+
+print("Choose the Number")
+
+A = int(input())
+
+
+if A == 1:
+  mail = input("email: "+"\n")
+  password = input("password: "+"\n")
+  already_exist(mail)
+
+elif A == 2:
+  mail = input("email: ")
+  password = input("password: ")
+  check1(mail)
+  check(password)
+  if re.fullmatch(regex, mail) and re.match(regexpass, password) is True:
+    with open('Login and Registration.txt') as f:
+     mylist = [line.rstrip('\n') for line in f]
+     if mail in mylist and password in mylist:
+       print("Welcome")
+     else:
+       print("please register")
+
+elif A == 3:
+  mail = input("email: ")
+  with open('Login and Registration.txt') as f:
+    mylist = [line.rstrip('\n') for line in f]
+    y = mylist.index(mail)
+    print(mylist[y+1])
+
+else:
+  print("incorrect input")
