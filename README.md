@@ -15,4 +15,4 @@ Some of my work for Python practice
          
 3. Madlib game
 
-         This is simple Paragraph filing game, did completely by python.
+         This is simple Paragraph filing game, did completely in python, tried to do with simple GUI tkinter.
